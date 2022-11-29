@@ -31,6 +31,7 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.FluidLevelChangeEvent;
 
 public class BlockPhysicsListener implements Listener {
 
@@ -69,7 +70,14 @@ public class BlockPhysicsListener implements Listener {
                     e.getChangedType().name().toLowerCase().contains("pane") ||
                     e.getChangedType().name().toLowerCase().contains("wall") ||
                     e.getChangedType().name().toLowerCase().contains("bar") ||
-                    e.getChangedType().name().toLowerCase().contains("door")) {
+                    e.getChangedType().name().toLowerCase().contains("door") ||
+                    e.getChangedType().name().toLowerCase().contains("bamboo") ||
+                    e.getChangedType().name().toLowerCase().contains("weeping_vines") ||
+                    e.getChangedType().name().toLowerCase().contains("wisting_vines") ||
+                    e.getChangedType().name().toLowerCase().contains("pointed_dripstone") ||
+                    e.getChangedType().name().toLowerCase().contains("kelp") ||
+                    e.getChangedType().name().toLowerCase().contains("chorus_plant") ||
+                    e.getChangedType().name().toLowerCase().contains("chorus_flower")) {
                 return;
             }
         } catch (Exception ex) {
@@ -113,6 +121,13 @@ public class BlockPhysicsListener implements Listener {
             }
         }
 
+    }
+
+    @EventHandler
+    public void onFluidLevelChange(FluidLevelChangeEvent event) {
+        if (Settings.disablePhysics) {
+            event.setCancelled(true);
+        }
     }
 
 }
